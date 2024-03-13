@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-r = requests.get('http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html')
+r = requests.get('http://books.toscrape.com/index.html')
 response = requests.get(r)
 soup = BeautifulSoup(response.text, "html.parser")
 
