@@ -4,6 +4,8 @@ import csv
 
 # Function to scrape data from a product page
 
+url = 'http://books.toscrape.com/index.html'
+
 
 def scrape_product_page(url):
 
@@ -56,7 +58,7 @@ def write_to_csv(data, filename):
 def main():
 
     # URL of the product page
-    url = 'http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html'
+    url = 'http://books.toscrape.com/index.html'
 
     # Scrape data from the product page
 
