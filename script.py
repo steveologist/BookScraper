@@ -11,8 +11,8 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
 
 
-book_title = soup.select_one("div.col-sm-6.product_main > h1").text.strip()
 product_page_url = url
+book_title = soup.select_one("div.col-sm-6.product_main > h1").text.strip()
 upc = soup.select_one("tr:nth-child(1) > td").text.strip() # noqa
 p_inc_tax = soup.select_one("tr:nth-of-type(4) > td").text.strip()
 p_exc_tax = soup.select_one("tr:nth-of-type(3) > td").text.strip()
@@ -23,8 +23,8 @@ review_rating = soup.select_one("p.star-rating")['class'][1]
 image_url = soup.select_one("div.item.active > img")['src']
 
 
-print("Book Title:", book_title)
 print("Product Page URL:", product_page_url)
+print("Book Title:", book_title)
 print("Universal Product Code (UPC):", upc)
 print("Price Including Tax:", p_inc_tax)
 print("Price Excluding Tax:", p_exc_tax)
