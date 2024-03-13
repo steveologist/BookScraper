@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
-url = "http://books.toscrape.com/index.html"
-response = requests.get(url)
-soup = BeautifulSoup(response.text, "html.parser")
+def scrape_product_page(url): 
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
 
 # content_inner > article > div.row > div.col-sm-6.product_main > p.price_color
 # content_inner > article > p
