@@ -14,4 +14,3 @@ for price_element in price_elements:
 
 print(price_elements)
 print(price)
-print(BeautifulSoup)
