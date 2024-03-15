@@ -27,6 +27,14 @@ image_url = soup.select_one("div.item.active > img")['src']
 # CREATING ROWS FOR CSV FILES
 row = [product_page_url, book_title, upc, p_inc_tax, p_exc_tax, quantity_available, product_description, category, review_rating, image_url]  # noqa 
 
+# using Write to External Files method
+# use the  .writer()  and  .writerow()  functions to determine columns into a CSV file. # noqa
+with open('.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(['Product Page URL', 'Book Title', 'UPC', 'Price Including Tax', 'Price Excluding Tax', 'Quantity Available', 'Product Description', 'Category', 'Review Rating', 'Image URL']) # noqa
+    writer.writerow(row)
+print("hope it works")
+
 # HERE I MADE THE CODE PRINT DIRECTLY ON TERMINAL
 # CODE WORKS AND SCRAPES FROM WEBSIRE
 # print("Product Page URL:", product_page_url)
