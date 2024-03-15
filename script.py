@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
+
 url = "http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html" # noqa
 
 
@@ -23,6 +24,11 @@ review_rating = soup.select_one("p.star-rating")['class'][1]
 image_url = soup.select_one("div.item.active > img")['src']
 
 
+# CREATING ROWS FOR CSV FILES
+row = [product_page_url, book_title, upc, p_inc_tax, p_exc_tax, quantity_available, product_description, category, review_rating, image_url]  # noqa 
+
+# HERE I MADE THE CODE PRINT DIRECTLY ON TERMINAL
+# CODE WORKS AND SCRAPES FROM WEBSIRE
 # print("Product Page URL:", product_page_url)
 # print("Book Title:", book_title)
 # print("Universal Product Code (UPC):", upc)
