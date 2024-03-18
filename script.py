@@ -26,6 +26,7 @@ def scrape_book_data(url):
 
 
 def extract_product_urls(url):
+    product_urls = []
     roduct_urls = []
     while url:
         response = requests.get(url)
@@ -40,6 +41,7 @@ def extract_product_urls(url):
         else:
             url = None
     return product_urls
+
 
 if __name__ == "__main__":
     url = "http://books.toscrape.com/catalo
