@@ -34,18 +34,17 @@ def extract_product_urls(url):
         products = soup.find_all('h3')
         for product in products:
             product_url = product.find('a')['href']
-            product_urls.append('http://books.toscrape.com/catalogue/' + product_url)
+            product_urls.append('http://books.toscrape.com/catalogue/' + product_url) # noqa
         next_page = soup.find('li', class_='next')
         if next_page:
-            url = 'http://books.toscrape.com/catalogue/category/books/horror_31/' + next_page.find('a')['href']
+            url = 'http://books.toscrape.com/catalogue/category/books/horror_31/' + next_page.find('a')['href'] # noqa
         else:
             url = None
     return product_urls
 
 
 if __name__ == "__main__":
-    url = "http://books.toscrape.com/catalo
-    gue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html" # noqa
+    url = "http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html" # noqa
     row = scrape_book_data(url)
 
 # using Write to External Files method
