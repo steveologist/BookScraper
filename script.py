@@ -25,6 +25,13 @@ def scrape_book_data(url):
 # header = ['Product Page URL', 'Book Title', 'UPC', 'Price Including Tax', 'Price Excluding Tax', 'Quantity Available', 'Product Description', 'Category', 'Review Rating', 'Image URL'] # noqa
 
 
+def extract_product_urls(url):
+    roduct_urls = []
+    while url:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        products = soup.find_all('h3')
+
 if __name__ == "__main__":
     url = "http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html" # noqa
     row = scrape_book_data(url)
