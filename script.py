@@ -27,7 +27,6 @@ def scrape_book_data(url):
 
 def extract_product_urls(url):
     product_urls = []
-    roduct_urls = []
     while url:
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -46,6 +45,8 @@ def extract_product_urls(url):
 if __name__ == "__main__":
     url = "http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html" # noqa
     row = scrape_book_data(url)
+    base_url = 'http://books.toscrape.com/catalogue/category/books/horror_31/index.html' # noqa
+    product_urls = extract_product_urls(base_url)
 
 # using Write to External Files method
 # use the  .writer()  and  .writerow()  functions to determine columns into a CSV file. # noqa
