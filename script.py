@@ -35,6 +35,11 @@ def extract_product_urls(url):
             product_url = product.find('a')['href']
             product_urls.append('http://books.toscrape.com/catalogue/' + product_url)
         next_page = soup.find('li', class_='next')
+        if next_page:
+            url = 'http://books.toscrape.com/catalogue/category/books/horror_31/' + next_page.find('a')['href']
+        else:
+            url = None
+    return product_urls
 
 if __name__ == "__main__":
     url = "http://books.toscrape.com/catalo
