@@ -26,7 +26,7 @@ def get_book_info(url):
 
 def write_to_csv(data):
     headers = ["product_page_url", "universal_product_code (upc)", "book_title", "price_including_tax", "price_excluding_tax", "quantity_available", "product_description", "category", "review_rating", "image_url"] # noqa
-    with open('Single_book.csv', 'w', newline='', encoding='utf-8') as file:
+    with open('phase1.csv', 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(data)
