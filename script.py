@@ -4,12 +4,15 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
+# use the requests.get() to provide URL
+# html.parser parses the HTML content of the response using BeautifulSoup
+
 
 def get_book_info(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    # Extracting information
+    # Extracting information from HTML
     product_page_url = url
     upc = soup.find('th', string='UPC').find_next('td').text # noqa
     book_title = soup.find('div', class_='col-sm-6 product_main').find('h1').text # noqa
@@ -24,9 +27,10 @@ def get_book_info(url):
     return [product_page_url, upc, book_title, price_including_tax, price_excluding_tax, quantity_available, product_description, category, review_rating, image_url] # noqa
 
 
+# defines the headers for the csv files as a list.
 def write_to_csv(data):
     headers = ["product_page_url", "universal_product_code (upc)", "book_title", "price_including_tax", "price_excluding_tax", "quantity_available", "product_description", "category", "review_rating", "image_url"] # noqa
-    with open('phase1.csv', 'w', newline='', encoding='utf-8') as file:
+    with open('Single.csv', 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(data)
