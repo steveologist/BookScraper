@@ -63,4 +63,7 @@ if __name__ == "__main__":
     # Extracting from first page
     book_info_all_pages.extend(get_book_info(category_url))
 
+    # Checking for other pages
+    current_page = 2
+
     write_to_csv(book_info_all_pages)
