@@ -65,8 +65,12 @@ if __name__ == "__main__":
 
     # Checking for other pages
     current_page = 2
- 
+
     while True:
         next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
         response = requests.get(next_page_url)
+
+        if response.status_code == 400:
+            book_info_all_pages.extend(get_book_info(next_page_url))
+            current_page += 2
     write_to_csv(book_info_all_pages)
