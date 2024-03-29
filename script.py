@@ -70,7 +70,7 @@ if __name__ == "__main__":
         next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
         response = requests.get(next_page_url)
 
-        if response.status_code == 400:
+        if response.status_code == 200:
             book_info_all_pages.extend(get_book_info(next_page_url))
-            current_page += 2
+            current_page += 1
     write_to_csv(book_info_all_pages)
