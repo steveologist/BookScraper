@@ -17,10 +17,6 @@ def get_book_info(url):
 
     book_info_list = []
 
-    for book in book_list:
-        book_url = BASE_URL + book.a['href'][9:]
-        book_info = get_individual_book_info(book_url)
-        book_info_list.append(book_info)
 
     return book_info_list
 # use the requests.get() to provide URL
