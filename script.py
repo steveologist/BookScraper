@@ -60,5 +60,7 @@ def write_to_csv(data):
 if __name__ == "__main__":
     category_url = "http://books.toscrape.com/catalogue/category/books/science-fiction_16/index.html" # noqa
     book_info_all_pages = []
+    # Extracting from first page
+    book_info_all_pages.extend(get_book_info(category_url))
 
     write_to_csv(book_info_all_pages)
