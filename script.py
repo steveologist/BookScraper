@@ -73,4 +73,7 @@ if __name__ == "__main__":
         if response.status_code == 200:
             book_info_all_pages.extend(get_book_info(next_page_url))
             current_page += 1
+        else:
+            break
+
     write_to_csv(book_info_all_pages)
