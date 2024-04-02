@@ -67,6 +67,24 @@ def get_individual_book_info(url):
     return [product_page_url, upc, book_title, price_including_tax, price_excluding_tax, quantity_available, product_description, category, review_rating, image_url] # noqa
 
 
+def save_image(book_title, image_url):
+    # Create a directory if it doesn't exist
+    if not os.path.exists("images"):
+    # os.makedirs checks if the directory "images" exists. If it doesn't, it creates one # noqa
+        os.makedirs("images")
+
+    # Get the image filename
+    # book_title is modified to replace any slashes ('/') with underscores ('_') to ensure it can be used as part of a filename # noqa
+    image_filename = f"images/{book_title.replace('/', '_')}.jpg"
+
+    # returns the filename of a saved image
+    response = requests.get(image_url)
+    with open(image_filename, 'wb') as f:
+        f.write(response.content)
+
+    return image_filename
+
+
 # headers defines a list as columns for a csv files that has the information it is scraping for # noqa
 # opens a new csv file in binary mode, also uses csv.writer which writes rows # noqa 
 # uses get_book_info function and writes it to a CSV file with the specified headers # noqa
@@ -80,7 +98,7 @@ def write_to_csv(data, category_name):
 
 
 if __name__ == "__main__":
-    categories = get_categories()
+    categories = get_all_categories()
     for category_name, category_url in categories:
         print("Scraping:", category_name)
         get_books_in_category(category_name, category_url)
@@ -91,15 +109,15 @@ if __name__ == "__main__":
 # infinite loop using while True
 # constructs the URL for the next page within a category.
 # send a GET request to the URL specified by next_page_url.
-    while True:
-        next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
-        response = requests.get(next_page_url)
+#    while True:
+#        next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
+#       response = requests.get(next_page_url)
 # status code of 200 means "OK"
 # else block executes the break statement.
-        if response.status_code == 200:
-            book_info_all_pages.extend(get_book_info(next_page_url))
-            current_page += 1
-        else:
-            break
+#       if response.status_code == 200:
+#           book_info_all_pages.extend(get_book_info(next_page_url))
+#           current_page += 1
+#       else:
+#           break
 
-    write_to_csv(book_info_all_pages)
+#   write_to_csv(book_info_all_pages)
