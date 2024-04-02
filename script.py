@@ -65,10 +65,13 @@ if __name__ == "__main__":
     # Checking for other pages
     current_page = 2
 
+# infinite loop using while True
+# constructs the URL for the next page within a category.
+# send a GET request to the URL specified by next_page_url.
     while True:
         next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
         response = requests.get(next_page_url)
-
+# status code of 200 means "OK"
         if response.status_code == 200:
             book_info_all_pages.extend(get_book_info(next_page_url))
             current_page += 1
