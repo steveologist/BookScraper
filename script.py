@@ -80,10 +80,10 @@ def write_to_csv(data, category_name):
 
 
 if __name__ == "__main__":
-    category_url = "http://books.toscrape.com/catalogue/category/books/science-fiction_16/index.html" # noqa
-    book_info_all_pages = []
-    # Extracting from first page
-    book_info_all_pages.extend(get_book_info(category_url))
+    categories = get_categories()
+    for category_name, category_url in categories:
+        print("Scraping:", category_name)
+        get_books_in_category(category_name, category_url)
 
     # Checking for other pages
     current_page = 2
