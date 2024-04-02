@@ -32,6 +32,13 @@ def get_all_categories():
     return [(category.text.strip(), BASE_URL + category['href']) for category in categories] # noqa
 
 
+# makes an empty list called book_info_list to store information about each book. # noqa
+def get_books_in_category(category_name, category_url):
+    response = requests.get(category_url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    book_list = soup.find_all('h3')
+
+
 def get_individual_book_info(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
