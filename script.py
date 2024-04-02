@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 
 BASE_URL = "http://books.toscrape.com/catalogue/"
+INDEX_URL = BASE_URL + "index.html"
 
 
 # get book function takes the URL as input
