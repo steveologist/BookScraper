@@ -72,6 +72,7 @@ if __name__ == "__main__":
         next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
         response = requests.get(next_page_url)
 # status code of 200 means "OK"
+# else block executes the break statement.
         if response.status_code == 200:
             book_info_all_pages.extend(get_book_info(next_page_url))
             current_page += 1
