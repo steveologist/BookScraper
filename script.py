@@ -38,6 +38,14 @@ def get_books_in_category(category_name, category_url):
     soup = BeautifulSoup(response.text, 'html.parser')
     book_list = soup.find_all('h3')
 
+    book_info_list = []
+    for book in book_list:
+        book_url = BASE_URL + 'catalogue' + book.a['href'][8:]
+        book_info = get_individual_book_info(book_url)
+        book_info_list.append(book_info)
+
+    write_to_csv(book_info_list, category_name)
+
 
 def get_individual_book_info(url):
     response = requests.get(url)
