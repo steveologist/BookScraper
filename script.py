@@ -70,9 +70,10 @@ def get_individual_book_info(url):
 # headers defines a list as columns for a csv files that has the information it is scraping for # noqa
 # opens a new csv file in binary mode, also uses csv.writer which writes rows # noqa 
 # uses get_book_info function and writes it to a CSV file with the specified headers # noqa
-def write_to_csv(data):
+def write_to_csv(data, category_name):
     headers = ["product_page_url", "universal_product_code (upc)", "book_title", "price_including_tax", "price_excluding_tax", "quantity_available", "product_description", "category", "review_rating", "image_url"] # noqa
-    with open('science_fiction_books.csv', 'w', newline='', encoding='utf-8') as file: # noqa
+    file_name = f"{category_name.replace('/', '_')}.csv"
+    with open(file_name, 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(data)
