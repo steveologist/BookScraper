@@ -9,22 +9,27 @@ INDEX_URL = BASE_URL + "index.html"
 # get book function takes the URL as input
 # soup.find finds all "h3" tags in the parsed HTML document then makes an empty list function called book info list and stored the info. # noqa
 # calls a function get_individual_book_info() with this constructed URL to retrieve information about the book. # noqa
-def get_book_info(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+# def get_book_info(url):
+#   response = requests.get(url)
+#   soup = BeautifulSoup(response.text, 'html.parser')
 
-    book_list = soup.find_all('h3')
+#   book_list = soup.find_all('h3')
 
-    book_info_list = []
+#   book_info_list = []
 
-    for book in book_list:
-        book_url = BASE_URL + book.a['href'][9:]
-        book_info = get_individual_book_info(book_url)
-        book_info_list.append(book_info)
-
-    return book_info_list
+#   for book in book_list:
+#       book_url = BASE_URL + book.a['href'][9:]
+#       book_info = get_individual_book_info(book_url)
+#       book_info_list.append(book_info)
+#    return book_info_list
 # use the requests.get() to provide URL
 # html.parser parses the HTML content of the response using BeautifulSoup
+
+def get_all_categories():
+    response = requests.get(INDEX_URL)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    categories = soup.select('.side_categories > ul > li > ul > li > a')
+    return [(category.text.strip(), BASE_URL + category['href']) for category in categories] # noqa
 
 
 def get_individual_book_info(url):
