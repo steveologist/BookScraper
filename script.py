@@ -1,32 +1,19 @@
-import requests
+# opersating system import helps functions with working files and directories
 import os
+import requests
 from bs4 import BeautifulSoup
 import csv
 
-BASE_URL = "http://books.toscrape.com/catalogue/"
+# base url is a string variable that holds the base URL of a website. # noqa
+# index url holds the URL of the index page of the website # noqa
+BASE_URL = "http://books.toscrape.com/"
 INDEX_URL = BASE_URL + "index.html"
 
 
-# get book function takes the URL as input
-# soup.find finds all "h3" tags in the parsed HTML document then makes an empty list function called book info list and stored the info. # noqa
-# calls a function get_individual_book_info() with this constructed URL to retrieve information about the book. # noqa
-# def get_book_info(url):
-#   response = requests.get(url)
-#   soup = BeautifulSoup(response.text, 'html.parser')
-
-#   book_list = soup.find_all('h3')
-
-#   book_info_list = []
-
-#   for book in book_list:
-#       book_url = BASE_URL + book.a['href'][9:]
-#       book_info = get_individual_book_info(book_url)
-#       book_info_list.append(book_info)
-#    return book_info_list
-# use the requests.get() to provide URL
+# get categories retrieves categories from books to scrape
+# uses the requests.get() to provide URL
 # html.parser parses the HTML content of the response using BeautifulSoup
-
-def get_all_categories():
+def get_categories():
     response = requests.get(INDEX_URL)
     soup = BeautifulSoup(response.text, 'html.parser')
     categories = soup.select('.side_categories > ul > li > ul > li > a')
@@ -48,23 +35,32 @@ def get_books_in_category(category_name, category_url):
     write_to_csv(book_info_list, category_name)
 
 
+# use the requests.get() to provide URL
+# html.parser parses the HTML content of the response using BeautifulSoup
 def get_individual_book_info(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Extracting information
+# searches for the table header (th) containing the text 'UPC', finds the next table data (td) element # noqa
+# Retrieves the all information from the HTML. It looks for the table header containing 'Price (incl. tax)' # noqa
+# image url constructs the URL for the image of the product.
     product_page_url = url
     upc = soup.find('th', string='UPC').find_next('td').text.strip()
     book_title = soup.find('div', class_='col-sm-6 product_main').find('h1').text # noqa
     price_including_tax = soup.find('th', string='Price (incl. tax)').find_next('td').text # noqa
     price_excluding_tax = soup.find('th', string='Price (excl. tax)').find_next('td').text # noqa
     quantity_available = soup.find('th', string='Availability').find_next('td').text # noqa
-    product_description = soup.find('div', id='product_description').find_next('p').text # noqa
+
+    product_description_element = soup.find('div', id='product_description')
+    product_description = product_description_element.find_next('p').text if product_description_element else None # noqa
+
     category = soup.find('ul', class_='breadcrumb').find_all('li')[2].text.strip() # noqa
     review_rating = soup.find('p', class_='star-rating')['class'][1]
-    image_url = soup.find('div', class_='item active').find('img')['src']
+    image_url = BASE_URL + soup.find('div', class_='item active').find('img')['src']# noqa
 
-    return [product_page_url, upc, book_title, price_including_tax, price_excluding_tax, quantity_available, product_description, category, review_rating, image_url] # noqa
+    # Download and save image
+    image_filename = save_image(book_title, image_url)
+
+    return [product_page_url, upc, book_title, price_including_tax, price_excluding_tax, quantity_available, product_description, category, review_rating, image_filename] # noqa
 
 
 def save_image(book_title, image_url):
@@ -86,7 +82,7 @@ def save_image(book_title, image_url):
 
 
 # headers defines a list as columns for a csv files that has the information it is scraping for # noqa
-# opens a new csv file in binary mode, also uses csv.writer which writes rows # noqa 
+# opens a new csv file in binary mode, also uses csv.writer which writes rows
 # uses get_book_info function and writes it to a CSV file with the specified headers # noqa
 def write_to_csv(data, category_name):
     headers = ["product_page_url", "universal_product_code (upc)", "book_title", "price_including_tax", "price_excluding_tax", "quantity_available", "product_description", "category", "review_rating", "image_url"] # noqa
@@ -97,27 +93,11 @@ def write_to_csv(data, category_name):
         writer.writerows(data)
 
 
+# if __name__ == "__main__": This line checks whether the script is being run directly or if it's being imported as a module by another script. # noqa
+# calls the function get_book_info with the provided URL and assigns the returned book information to the variable  # noqa
+#  book_info This function writes the book information to a CSV file.
 if __name__ == "__main__":
-    categories = get_all_categories()
+    categories = get_categories()
     for category_name, category_url in categories:
         print("Scraping:", category_name)
         get_books_in_category(category_name, category_url)
-
-    # Checking for other pages
-    current_page = 2
-
-# infinite loop using while True
-# constructs the URL for the next page within a category.
-# send a GET request to the URL specified by next_page_url.
-#    while True:
-#        next_page_url = category_url.replace('index.html', f'page-{current_page}.html') # noqa
-#       response = requests.get(next_page_url)
-# status code of 200 means "OK"
-# else block executes the break statement.
-#       if response.status_code == 200:
-#           book_info_all_pages.extend(get_book_info(next_page_url))
-#           current_page += 1
-#       else:
-#           break
-
-#   write_to_csv(book_info_all_pages)
