@@ -21,7 +21,7 @@ def get_categories():
 
 
 # makes an empty list called book_info_list to store information about each book. # noqa
-def get_books_in_category(category_name, category_url):
+def get_books_category(category_name, category_url):
     response = requests.get(category_url)
     soup = BeautifulSoup(response.text, 'html.parser')
     book_list = soup.find_all('h3')
@@ -29,7 +29,7 @@ def get_books_in_category(category_name, category_url):
     book_info_list = []
     for book in book_list:
         book_url = BASE_URL + 'catalogue' + book.a['href'][8:]
-        book_info = get_individual_book_info(book_url)
+        book_info = get_ind_info(book_url)
         book_info_list.append(book_info)
 
     write_to_csv(book_info_list, category_name)
@@ -37,7 +37,7 @@ def get_books_in_category(category_name, category_url):
 
 # use the requests.get() to provide URL
 # html.parser parses the HTML content of the response using BeautifulSoup
-def get_individual_book_info(url):
+def get_ind_info(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 # searches for the table header (th) containing the text 'UPC', finds the next table data (td) element # noqa
@@ -100,4 +100,4 @@ if __name__ == "__main__":
     categories = get_categories()
     for category_name, category_url in categories:
         print("Scraping:", category_name)
-        get_books_in_category(category_name, category_url)
+        get_books_category(category_name, category_url)
