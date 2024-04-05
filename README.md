@@ -1,9 +1,11 @@
 # Project 2
 ##  Python script scrapes book information from a website and writes it to CSV files.
-## imports
+
+## Imports
 - Requests for making HTTP requests
 - BeautifulSoup for parsing HTML
 - csv for handling CSV files
+
 ## Base URL
 - It sets the base URL and index URL of the website.
 
@@ -32,3 +34,5 @@
 ## Function write_to_csv()
 - Defines CSV headers
 - Writes the book information to a CSV file named after the category
+
+## After executing the script it will print the progress as it scrapes each category and writes the data to CSV files.
