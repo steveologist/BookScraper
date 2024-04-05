@@ -99,5 +99,5 @@ def write_to_csv(data, category_name):
 if __name__ == "__main__":
     categories = get_categories()
     for category_name, category_url in categories:
-        print("Scraping:", category_name)
+        print("Scraping books from:", category_name)
         get_books_category(category_name, category_url)
