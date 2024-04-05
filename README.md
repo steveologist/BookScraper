@@ -1,6 +1,44 @@
 # Project 2
 ##  Python script scrapes book information from a website and writes it to CSV files.
 
+## Set Up Virtual Environment:
+- Open your terminal or command prompt.
+- Navigate to the directory where your code is located.
+- ( I use mac so to get there I use "cd" "ls" etc )
+- Run the following command to create a virtual environment named 'venv':
+    " python -m venv venv "
+
+## Activate Virtual Environment:
+- On Windows:
+   " venv\Scripts\activate "
+- On macOS and Linux:
+   " source venv/bin/activate "
+
+## Install Dependencies:
+- Notice that your command prompt changes, indicating that the virtual environment is active.
+- Install the required dependencies by running:
+   " pip install requests beautifulsoup4 "
+
+## Run the Application:
+- With the virtual environment activated and dependencies installed, run the application code.
+- Run the Python script by executing:
+    " python script.py " or " python3 script.py "
+- The script will start scraping book information from the provided website and save it into CSV files.
+
+## Deactivate Virtual Environment:
+- Once you're done running the application
+- deactivate the virtual environment by running:
+    " deactivate 
+- This will return you to your normal command prompt environment.
+
+
+
+
+
+# Info about script.py
+
+
+
 ## Imports
 - Requests for making HTTP requests
 - BeautifulSoup for parsing HTML
