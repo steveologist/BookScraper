@@ -46,9 +46,9 @@ def get_ind_info(url):
     product_page_url = url
     upc = soup.find('th', string='UPC').find_next('td').text.strip()
     book_title = soup.find('div', class_='col-sm-6 product_main').find('h1').text # noqa
-    price_including_tax = soup.find('th', string='Price (incl. tax)').find_next('td').text # noqa
-    price_excluding_tax = soup.find('th', string='Price (excl. tax)').find_next('td').text # noqa
-    quantity_available = soup.find('th', string='Availability').find_next('td').text # noqa
+    price_incl_tax = soup.find('th', string='Price (incl. tax)').find_next('td').text # noqa
+    price_excl_tax = soup.find('th', string='Price (excl. tax)').find_next('td').text # noqa
+    qt_available = soup.find('th', string='Availability').find_next('td').text # noqa
 
     product_description_element = soup.find('div', id='product_description')
     product_description = product_description_element.find_next('p').text if product_description_element else None # noqa
@@ -60,7 +60,7 @@ def get_ind_info(url):
     # Download and save image
     image_filename = save_image(book_title, image_url)
 
-    return [product_page_url, upc, book_title, price_including_tax, price_excluding_tax, quantity_available, product_description, category, review_rating, image_filename] # noqa
+    return [product_page_url, upc, book_title, price_incl_tax, price_excl_tax, qt_available, product_description, category, review_rating, image_filename] # noqa
 
 
 def save_image(book_title, image_url):
