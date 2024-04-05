@@ -5,6 +5,7 @@
 - Requests for making HTTP requests
 - BeautifulSoup for parsing HTML
 - csv for handling CSV files
+- opersating system import helps functions with working files and directories
 
 ## Base URL
 - It sets the base URL and index URL of the website.
