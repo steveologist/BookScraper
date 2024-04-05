@@ -4,6 +4,7 @@
 ## Set Up Virtual Environment:
 - Open your terminal or command prompt.
 - Navigate to the directory where your code is located.
+- Other options could be to make a folder anywhere and make that the directory to add the deliverables to
 - ( I use mac so to get there I use "cd" "ls" etc )
 - Run the following command to create a virtual environment named 'venv':
     " python -m venv venv "
@@ -24,6 +25,7 @@
 - Run the Python script by executing:
     " python script.py " or " python3 script.py "
 - The script will start scraping book information from the provided website and save it into CSV files.
+- In my case the deliverables will be on my desktop in a folder named "Bookscraper"
 
 ## Deactivate Virtual Environment:
 - Once you're done running the application
